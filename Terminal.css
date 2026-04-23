@@ -1,0 +1,63 @@
+.terminal-container {
+  background-color: #000;
+  color: #0f0;
+  font-family: 'Fira Code', 'Cascadia Code', 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'monospace';
+  padding: 1rem;
+  margin: 0;
+  overflow: hidden;
+  line-height: 1.4;
+  user-select: none;
+  cursor: text;
+}
+
+.terminal-output {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  min-height: 300px;
+}
+
+.line {
+  margin: 0;
+  padding: 0;
+}
+
+.line.input-line {
+  margin-top: 0.5rem;
+}
+
+.line.output {
+  color: #0f0;
+}
+
+.line.input {
+  color: #0a0;
+}
+
+.terminal-form {
+  margin: 0;
+  padding: 0;
+}
+
+.terminal-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: transparent;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.cursor {
+  animation: blink 500ms infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

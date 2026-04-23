@@ -1,0 +1,28 @@
+{
+  "name": "toyterm-repo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vite.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justjon09/toyterm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justjon09/toyterm/issues"
+  },
+  "homepage": "https://github.com/justjon09/toyterm#readme",
+  "dependencies": {
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "terser": "^5.46.2",
+    "vite": "^8.0.10"
+  }
+}
