@@ -11,9 +11,11 @@ export default defineConfig({
         // Disable hashing: force static filenames
         entryFileNames: 'lagging-terminal.js',
         chunkFileNames: 'lagging-terminal.js',
-        assetFileNames: ({ name }) => {
-          if (name.endsWith('.css')) return 'lagging-terminal.css';
-          return '[name].[ext]';
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return 'lagging-terminal.css';
+          }
+          return '[name]-[hash].[ext]';
         },
       },
     },
