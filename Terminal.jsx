@@ -15,16 +15,22 @@ const Terminal = () => {
     const newHistory = [...history, { type: 'input', text: cmd }];
 
     let output;
-    if (trimmed === 'whoami') {
-      output = 'An underpaid developer running on 4 hours of sleep.';
-    } else if (trimmed === 'sudo rm -rf /') {
-      output = 'Nice try, junior. Access Denied.';
-    } else if (trimmed === 'clear') {
+    // Hardcode core functional commands
+    if (trimmed === 'clear') {
       setHistory([]);
       return;
-    } else if (trimmed === 'help') {
-      output = 'Available commands: whoami, sudo rm -rf /, clear, help';
-    } else {
+    }
+    // Dynamically check against Shopify settings
+    else if (customCommands[trimmed]) {
+      output = customCommands[trimmed];
+    }
+    // Dynamically generate the help menu
+    else if (trimmed === 'help') {
+      const available = Object.keys(customCommands).join(', ');
+      output = `Available commands: clear, help, ${available}`;
+    }
+    // Fallback
+    else {
       output = `Command not found: ${trimmed}. Type 'help' for available commands.`;
     }
 
