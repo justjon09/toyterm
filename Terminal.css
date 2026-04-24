@@ -80,6 +80,11 @@
   z-index: 2; /* Ensures it sits on top to catch taps natively */
 }
 
+.native-terminal-input:focus {
+  outline: none;
+  border: none;
+}
+
 /* --- ANIMATIONS --- */
 .cursor {
   animation: blink 500ms infinite;
