@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const Terminal = () => {
+const Terminal = ({ customCommands = {} }) => {
   const [history, setHistory] = useState([
     { type: 'output', text: 'Lagging Logic Terminal v1.0' },
     { type: 'output', text: 'Type \"help\" for available commands.' },
