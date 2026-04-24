@@ -112,9 +112,6 @@ const Terminal = ({ customCommands = {} }) => {
           className="terminal-input"
           spellCheck="false"
           autoCorrect="off"
-          autoCapitalize="none"
-          data-form-type="other"
-          dir="ltr"
         />
       </form>
     </div>
