@@ -6,19 +6,46 @@ const Terminal = () => {
     { type: 'output', text: 'Type \"help\" for available commands.' },
   ]);
   const [input, setInput] = useState('');
+
+  // New States for Easter Eggs
+  const [surpriseCount, setSurpriseCount] = useState(0);
+  const [activeEffect, setActiveEffect] = useState('');
+
   const inputRef = useRef(null);
+
+  // Helper to trigger CSS animations and remove them after they finish
+  const triggerEffect = (effectClass, duration) => {
+    setActiveEffect(effectClass);
+    setTimeout(() => setActiveEffect(''), duration);
+  };
 
   const handleCommand = (cmd) => {
     const trimmed = cmd.trim();
     if (!trimmed) return;
 
     const newHistory = [...history, { type: 'input', text: cmd }];
-
     let output;
+
     // Hardcode core functional commands
     if (trimmed === 'clear') {
       setHistory([]);
       return;
+    }
+    else if (trimmed === 'git push') {
+      output = 'Pushing to remote... opening in new tab.';
+      window.open(window.location.href, '_blank');
+    }
+    else if (trimmed === 'surprise me') {
+      if (surpriseCount === 0) {
+        triggerEffect('shake', 500);
+        output = 'System unstable. Brace for impact.';
+      } else if (surpriseCount === 1) {
+        triggerEffect('flash', 1000);
+        output = 'Critical power surge detected in the mainframe.';
+      } else {
+        output = "You've had enough ... some people.";
+      }
+      setSurpriseCount(prev => prev + 1);
     }
     // Dynamically check against Shopify settings
     else if (customCommands[trimmed]) {
@@ -27,7 +54,7 @@ const Terminal = () => {
     // Dynamically generate the help menu
     else if (trimmed === 'help') {
       const available = Object.keys(customCommands).join(', ');
-      output = `Available commands: clear, help, ${available}`;
+      output = `Available commands: clear, surprise me, git push, help, ${available}`;
     }
     // Fallback
     else {
@@ -49,7 +76,8 @@ const Terminal = () => {
   useEffect(() => {
     const handleClick = () => {
       if (inputRef.current) {
-        inputRef.current.focus();
+        // Add preventScroll: true to stop the browser from jumping
+        inputRef.current.focus({ preventScroll: true });
       }
     };
     const terminal = document.querySelector('.terminal-container');
@@ -60,7 +88,9 @@ const Terminal = () => {
   }, []);
 
   return (
-    <div className="terminal-container">
+    // Apply the activeEffect class dynamically to the wrapper
+    
+    <div className={`terminal-container ${activeEffect}`}>
       <div className="terminal-output">
         {history.map((line, i) => (
           <div key={i} className={`line ${line.type}`}>
