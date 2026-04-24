@@ -47,14 +47,14 @@ const Terminal = ({ customCommands = {} }) => {
       }
       setSurpriseCount(prev => prev + 1);
     }
-    // Dynamically check against Shopify settings
-    else if (customCommands[trimmed]) {
-      output = customCommands[trimmed];
-    }
     // Dynamically generate the help menu
     else if (trimmed === 'help') {
       const available = Object.keys(customCommands).join(', ');
       output = `Available commands: clear, surprise me, git push, help, ${available}`;
+    }
+    // Dynamically check against Shopify settings
+    else if (customCommands[trimmed]) {
+      output = customCommands[trimmed];
     }
     // Fallback
     else {
