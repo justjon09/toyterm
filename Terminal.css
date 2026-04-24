@@ -1,5 +1,6 @@
+/* --- BASE TERMINAL STYLES --- */
 .terminal-container {
-  position: relative; /* <-- ADD THIS TO TRAP THE ABSOLUTE INPUT */
+  position: relative; /* Traps absolute elements inside */
   background-color: #000;
   color: #0f0;
   font-family: 'Fira Code', 'Cascadia Code', 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'monospace';
@@ -22,10 +23,6 @@
   padding: 0;
 }
 
-.line.input-line {
-  margin-top: 0.5rem;
-}
-
 .line.output {
   color: #0f0;
 }
@@ -34,28 +31,59 @@
   color: #0a0;
 }
 
-.terminal-form {
+/* --- THE TWO-LAYER INPUT STACK --- */
+.line.input-line {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.prompt-symbol {
+  color: #0f0;
+  margin-right: 0.5rem;
+  white-space: pre;
+}
+
+.input-stack {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
   margin: 0;
   padding: 0;
 }
 
-.terminal-input {
+/* LAYER 1 (BOTTOM): The Visual Puppet Show */
+.visual-layer {
   position: absolute;
   top: 0;
   left: 0;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  outline: none;
-  border: none;
-  background: transparent;
-  color: transparent;
-  font-family: inherit;
-  font-size: 1rem;
+  width: 100%;
+  pointer-events: none; /* CRITICAL: Lets taps pass straight through to the input */
+  color: #0f0;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
+/* LAYER 2 (TOP): The Invisible Native Input */
+.native-terminal-input {
+  width: 100%;
+  background: transparent;
+  color: transparent; /* Hides the native text */
+  caret-color: transparent; /* Hides the native thin cursor */
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 16px; /* CRITICAL: Prevents iOS auto-zoom */
+  padding: 0;
+  margin: 0;
+  z-index: 2; /* Ensures it sits on top to catch taps natively */
+}
+
+/* --- ANIMATIONS --- */
 .cursor {
   animation: blink 500ms infinite;
+  display: inline-block;
 }
 
 @keyframes blink {

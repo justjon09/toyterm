@@ -89,7 +89,6 @@ const Terminal = ({ customCommands = {} }) => {
 
   return (
     // Apply the activeEffect class dynamically to the wrapper
-    
     <div className={`terminal-container ${activeEffect}`}>
       <div className="terminal-output">
         {history.map((line, i) => (
@@ -98,25 +97,39 @@ const Terminal = ({ customCommands = {} }) => {
             {line.text}
           </div>
         ))}
+        {/* The Two-Layer Input Stack */}
         <div className="line input-line">
-          $ <span className="input-text">{input}</span>
-          <span className="cursor">█</span>
+          <span className="prompt-symbol">$ </span>
+          <form onSubmit={handleSubmit} className="input-stack">
+            {/* LAYER 1 (BOTTOM): The Visual Puppet Show */}
+            <div className="visual-layer">
+              {input}<span className="cursor">█</span>
+            </div>
+            {/* LAYER 2 (TOP): The Invisible Native Input */}
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onClick={(e) => {
+                const len = e.target.value.length;
+                e.target.setSelectionRange(len, len);
+              }}
+              onSelect={(e) => {
+                const len = e.target.value.length;
+                if (e.target.selectionStart !== len) {
+                  e.target.setSelectionRange(len, len);
+                }
+              }}
+              className="native-terminal-input"
+              autoComplete="off"
+              spellCheck="false"
+              autoCapitalize="none"
+              autoCorrect="off"
+            />
+          </form>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="terminal-form">
-        <input
-          ref={inputRef}
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="terminal-input"
-          spellCheck="false"
-          autoCorrect="off"
-          autoCapitalize="none"
-          data-form-type="other"
-          dir="ltr"
-        />
-      </form>
     </div>
   );
 };
