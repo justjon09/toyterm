@@ -73,16 +73,12 @@
   caret-color: transparent; /* Hides the native thin cursor */
   border: none;
   outline: none;
+  box-shadow: none;
   font-family: inherit;
   font-size: 16px; /* CRITICAL: Prevents iOS auto-zoom */
   padding: 0;
   margin: 0;
   z-index: 2; /* Ensures it sits on top to catch taps natively */
-}
-
-.native-terminal-input:focus {
-  outline: none;
-  border: none;
 }
 
 /* --- ANIMATIONS --- */
