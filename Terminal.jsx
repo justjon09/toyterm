@@ -20,7 +20,7 @@ const Terminal = ({ customCommands = {} }) => {
   };
 
   const handleCommand = (cmd) => {
-    const trimmed = cmd.trim();
+    const trimmed = cmd.trim().toLowerCase();
     if (!trimmed) return;
 
     const newHistory = [...history, { type: 'input', text: cmd }];
@@ -110,8 +110,11 @@ const Terminal = ({ customCommands = {} }) => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           className="terminal-input"
-          autoComplete="off"
           spellCheck="false"
+          autoCorrect="off"
+          autoCapitalize="none"
+          data-form-type="other"
+          dir="ltr"
         />
       </form>
     </div>
